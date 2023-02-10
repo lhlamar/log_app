@@ -9,7 +9,9 @@ class Log():
         self.year = dt.year
         self.day = dt.day
         self.month = dt.month
-        self.time = dt.time
+        self.hour = dt.hour
+        self.minute = dt.minute
+        self.second = dt.second
         self.message= self.prompt()
     def month_to_name(self, num):
         if num == 1:
@@ -77,8 +79,8 @@ class Log():
         return message
 
     def write_entry(self):
-        entry = (self.month_to_name(self.month) + ' ' + str(self.day)+ ', ' + str(self.year) + self.message
-        + str(self.time)  +'\n')
+        entry = (self.month_to_name(self.month) + ' ' + str(self.day)+ ', ' + str(self.year) 
+                 + " @" + str(self.hour) + ":" + str(self.minute) + self.message + '\n')
         if os.path.isfile('./mylog.txt'):
             mode = 'a'
         else:
