@@ -6,7 +6,7 @@ import os.path
 
 class Log():
     def __init__(self):
-        dt = datetime.now(tz=ZoneInfo("US/Central"))
+        dt = datetime.now(tz=None)
         self.year = dt.year
         self.day = dt.day
         self.month = dt.month
@@ -43,7 +43,7 @@ class Log():
     def prompt(self):
         message = str(input('Enter a note for your entry (press Enter to leave this part blank): '))
         if message != '':
-            message = ' - {0}'.format(message)
+            
             message_lower=message.lower()
             if 'bird' in message_lower:
                 if os.path.isfile('./mylog.txt'):
@@ -60,7 +60,7 @@ class Log():
         
         if not os.path.isfile('./mylog.csv'):
             with open("mylog.csv", 'w') as f:
-                writer = csv.writer(f)
+                writer = csv.writer(f, lineterminator='\n')
                 writer.writerow(["Month", "Day", "Year", "Hour", "Minute", "Memo"])
 
 
@@ -70,8 +70,8 @@ class Log():
             mode = 'a'
         else:
             mode = 'w'
-        with open("mylog.csv", mode) as f:
-            writer = csv.writer(f)
+        with open("mylog.csv", 'a') as f:
+            writer = csv.writer(f, lineterminator='\n')
             writer.writerow([self.month_to_name(self.month), self.day, self.year, self.hour,
                              self.minute, self.message])
 
